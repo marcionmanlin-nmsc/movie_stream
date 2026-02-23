@@ -1,0 +1,146 @@
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 1.5rem;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+  position: relative;
+}
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: var(--danger);
+}
+/* Color theme: blue, yellow, red from logo */
+:root {
+  --primary: #0074d9;
+  --accent: #ffe600;
+  --danger: #e53935;
+  --bg: #f4f8fb;
+  --text: #222;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.logo-icon {
+  font-size: 2.5rem;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 3px solid var(--danger);
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-right: 0.5rem;
+}
+main {
+  padding: 2rem 1rem;
+  flex: 1 0 auto;
+}
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+.movie-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+  border: 2px solid var(--primary);
+}
+/* Bootstrap card overrides for movie cards */
+.movie-card.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border: 2px solid var(--primary);
+  transition: transform 0.2s, border-color 0.2s;
+  overflow: hidden;
+}
+.movie-card.card:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--danger);
+}
+.movie-card .card-img-top {
+  width: 100%;
+  height: auto;
+  background: var(--accent);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 420px;
+}
+.movie-card .info {
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+}
+.movie-card .title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+.movie-card .desc {
+  font-size: 0.95rem;
+  margin: 0.5rem 0 0 0;
+  color: #444;
+}
+footer {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .movie-card img {
+    height: 200px;
+  }
+  main {
+    padding: 1rem 0.2rem;
+  }
+}
