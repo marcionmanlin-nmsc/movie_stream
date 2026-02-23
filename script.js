@@ -1,4 +1,5 @@
-// Placeholder movie data. Replace with real data as needed.
+// script.js — Movie Stream App
+
 const movies = [
   {
     title: "Tron: Ares",
@@ -7,16 +8,22 @@ const movies = [
     description: "The next chapter in the Tron saga, following a new digital adventure.",
     poster: "thumbnails/tron_ares.jpg",
     imdbUrl: "https://www.imdb.com/title/tt6604188/",
-    trailer: "https://www.youtube.com/embed/YShVEXb7-ic"
+    trailer: "https://www.youtube.com/embed/YShVEXb7-ic",
+    director: "Joachim Rønning",
+    writers: "Jesse Wigutow",
+    stars: "Jared Leto, Greta Lee, Evan Peters"
   },
   {
     title: "F1",
     year: 2025,
     genre: "Sport, Drama",
-    description: "A dramatic look into the world of Formula 1 racing.",
+    description: "A Formula One driver comes out of retirement to mentor and team up with a younger driver.",
     poster: "thumbnails/f1.jpg",
     imdbUrl: "https://www.imdb.com/title/tt16311594/",
-    trailer: "https://www.youtube.com/embed/69ffwl-8pCU"
+    trailer: "https://www.youtube.com/embed/69ffwl-8pCU",
+    director: "Joseph Kosinski",
+    writers: "Joseph Kosinski, Ehren Kruger",
+    stars: "Brad Pitt, Damson Idris, Javier Bardem"
   },
   {
     title: "Train Dreams",
@@ -25,189 +32,127 @@ const movies = [
     description: "A logger and railroad worker leads a life of unexpected depth and beauty in early 20th-century America.",
     poster: "thumbnails/train_dreams.jpg",
     imdbUrl: "https://www.imdb.com/title/tt29768334/",
-    trailer: "https://www.youtube.com/embed/_Nk8TrBHOrA"
+    trailer: "https://www.youtube.com/embed/_Nk8TrBHOrA",
+    director: "Clint Eastwood",
+    writers: "Denis Johnson (novel)",
+    stars: "Joel Edgerton, Felicity Jones, William H. Macy"
   },
   {
     title: "Lilo & Stitch",
     year: 2026,
-    genre: "Animation, Family",
+    genre: "Family, Comedy, Sci-Fi",
     description: "A young girl's close encounter with the galaxy's most wanted extraterrestrial.",
     poster: "thumbnails/lilo_stitch.jpg",
-    imdbUrl: "https://www.imdb.com/title/tt29768334/",
-    trailer: "https://www.youtube.com/embed/VWqJifMMgZE"
+    imdbUrl: "https://www.imdb.com/title/tt11032374/",
+    trailer: "https://www.youtube.com/embed/VWqJifMMgZE",
+    director: "Dean Fleischer Camp",
+    writers: "Chris Kekaniokalani Bright",
+    stars: "Maia Kealoha, Sydney Agudong, Zach Galifianakis"
   },
   {
     title: "Heart Eyes",
-    year: 2026,
-    genre: "Romance, Comedy",
-    description: "A romantic comedy about unexpected love.",
+    year: 2025,
+    genre: "Horror, Romance",
+    description: "A serial killer known as the Heart Eyes Killer terrorizes couples on Valentine's Day.",
     poster: "thumbnails/heart_eyes.jpg",
     imdbUrl: "https://www.imdb.com/title/tt32558992/",
-    trailer: "https://www.youtube.com/embed/1cRzZcMlJh8"
+    trailer: "https://www.youtube.com/embed/1cRzZcMlJh8",
+    director: "Josh Ruben",
+    writers: "Phillip Murphy, Christopher Landon",
+    stars: "Olivia Holt, Mason Gooding, Devon Sawa"
   }
 ];
 
+// ───── Build Movie Cards ─────
 const movieGrid = document.getElementById('movieGrid');
 
-
 movies.forEach((movie, idx) => {
-  const card = document.createElement('div');
-  card.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
-  card.innerHTML = `
-    <div class="movie-card card h-100 shadow-lg rounded-4 border-0 animate__animated animate__fadeInUp" style="transition: box-shadow 0.2s;">
-      <img src="${movie.poster}" alt="${movie.title} poster" class="card-img-top" style="cursor:pointer; border-radius: 1rem 1rem 0 0;" data-idx="${idx}">
-      <div class="info card-body d-flex flex-column">
-        <div class="title card-title d-flex align-items-center" style="cursor:pointer;color:var(--primary);text-decoration:underline;font-family:'Montserrat',Arial,sans-serif;font-weight:700;font-size:1.1rem;" onclick="window.open('${movie.imdbUrl}', '_blank')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDb" style="height:1.3em;vertical-align:middle;margin-right:0.3em;">${movie.title} (${movie.year})
-        </div>
-        <div class="desc card-text flex-grow-1" style="color:#444;font-size:0.97rem;">${movie.description}</div>
-        <button class="btn btn-primary mt-2 trailer-btn align-self-start px-3 py-2 rounded-pill shadow-sm" data-idx="${idx}" style="font-weight:500;letter-spacing:0.5px;"><i class="bi bi-youtube" style="font-size:1.3em;color:#fff;vertical-align:middle;"></i> Watch Trailer</button>
+  const col = document.createElement('div');
+  col.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
+
+  col.innerHTML = `
+    <div class="card movie-card h-100 shadow-sm border-0">
+      <img src="${movie.poster}" alt="${movie.title}" class="card-img-top" data-idx="${idx}">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title d-flex align-items-center" data-idx="${idx}">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDb" class="imdb-logo">
+          ${movie.title} (${movie.year})
+        </h5>
+        <span class="badge bg-secondary mb-2 align-self-start">${movie.genre}</span>
+        <p class="card-text flex-grow-1">${movie.description}</p>
+        <button class="btn btn-danger trailer-btn mt-auto align-self-start" data-idx="${idx}">
+          <i class="bi bi-youtube"></i> Watch Trailer
+        </button>
       </div>
     </div>
   `;
-  movieGrid.appendChild(card);
+
+  movieGrid.appendChild(col);
 });
 
-// Add click event for showing IMDb info modal
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.movie-card .card-img-top').forEach(img => {
-    img.addEventListener('click', function(e) {
-      const idx = parseInt(img.getAttribute('data-idx'));
-      showImdbInfo(idx);
-    });
+// ───── Trailer Modal ─────
+const trailerModal = new bootstrap.Modal(document.getElementById('trailerModal'));
+const trailerModalLabel = document.getElementById('trailerModalLabel');
+const trailerModalBody = document.getElementById('trailerModalBody');
+
+// Stop video when modal closes
+document.getElementById('trailerModal').addEventListener('hidden.bs.modal', () => {
+  trailerModalBody.innerHTML = '';
+});
+
+document.querySelectorAll('.trailer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const idx = parseInt(btn.getAttribute('data-idx'));
+    const movie = movies[idx];
+    trailerModalLabel.textContent = `${movie.title} — Trailer`;
+    trailerModalBody.innerHTML = `
+      <div class="trailer-responsive">
+        <iframe src="${movie.trailer}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+      </div>
+    `;
+    trailerModal.show();
   });
 });
 
-function showImdbInfo(idx) {
+// ───── Info Modal (click poster or title) ─────
+const infoModal = new bootstrap.Modal(document.getElementById('infoModal'));
+const infoModalLabel = document.getElementById('infoModalLabel');
+const infoModalBody = document.getElementById('infoModalBody');
+
+function showMovieInfo(idx) {
   const movie = movies[idx];
-  let infoHtml = '';
-  if (movie.title === "Tron: Ares") {
-    infoHtml = `<div style='text-align:center;'>
-      <img src='${movie.poster}' alt='${movie.title} poster' style='max-width:180px;width:100%;border-radius:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.12);margin-bottom:1rem;'>
-      <h2 style='font-family:Montserrat,sans-serif;font-weight:700;'>${movie.title}</h2>
-      <div class='mb-2'><span class='badge bg-secondary me-1'>${movie.year}</span> <span class='badge bg-info text-dark'>${movie.genre}</span></div>
-      <p style='font-size:1.05rem;'>The next chapter in the Tron saga, following a new digital adventure.</p>
-      <hr>
-      <div style='font-size:0.97rem;'>
-        <strong>Director:</strong> Joachim Rønning<br>
-        <strong>Writers:</strong> Jesse Wigutow<br>
-        <strong>Stars:</strong> Jared Leto, Greta Lee, Evan Peters
-      </div>
-      <a href='${movie.imdbUrl}' target='_blank' class='btn btn-warning mt-3' style='font-weight:600;'>View on IMDb</a>
-    </div>`;
-  } else if (movie.title === "F1") {
-    infoHtml = `<div style='text-align:center;'>
-      <img src='${movie.poster}' alt='${movie.title} poster' style='max-width:180px;width:100%;border-radius:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.12);margin-bottom:1rem;'>
-      <h2 style='font-family:Montserrat,sans-serif;font-weight:700;'>${movie.title}</h2>
-      <div class='mb-2'><span class='badge bg-secondary me-1'>${movie.year}</span> <span class='badge bg-info text-dark'>${movie.genre}</span></div>
-      <p style='font-size:1.05rem;'>A Formula One driver comes out of retirement to mentor and team up with a younger driver.</p>
-      <hr>
-      <div style='font-size:0.97rem;'>
-        <strong>Director:</strong> Joseph Kosinski<br>
-        <strong>Writers:</strong> Joseph Kosinski, Ehren Kruger<br>
-        <strong>Stars:</strong> Brad Pitt, Damson Idris, Javier Bardem
-      </div>
-      <a href='${movie.imdbUrl}' target='_blank' class='btn btn-warning mt-3' style='font-weight:600;'>View on IMDb</a>
-    </div>`;
-  } else {
-    infoHtml = `<div style='text-align:center;'>
-      <img src='${movie.poster}' alt='${movie.title} poster' style='max-width:180px;width:100%;border-radius:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.12);margin-bottom:1rem;'>
-      <h2 style='font-family:Montserrat,sans-serif;font-weight:700;'>${movie.title}</h2>
-      <div class='mb-2'><span class='badge bg-secondary me-1'>${movie.year}</span> <span class='badge bg-info text-dark'>${movie.genre}</span></div>
-      <p style='font-size:1.05rem;'>${movie.description}</p>
-      <a href='${movie.imdbUrl}' target='_blank' class='btn btn-warning mt-3' style='font-weight:600;'>View on IMDb</a>
-    </div>`;
-  }
-  const modal = document.getElementById('modalInfo');
-  const modalBody = document.getElementById('modalInfoBody');
-  modalBody.innerHTML = infoHtml;
-  modal.style.display = 'block';
-  document.getElementById('closeInfoModal').onclick = function(e) {
-    e.stopPropagation();
-    modal.style.display = 'none';
-    modalBody.innerHTML = '';
-  };
-  // Only allow clicking outside to close for non-Tron
-  window.onclick = function(event) {
-    if (event.target === modal) {
-      if (movie.title === "Tron: Ares") {
-        modal.style.display = 'none';
-        modalBody.innerHTML = '';
-        // Prevent any preview modal from showing
-        const previewModal = document.getElementById('modalPreview');
-        const previewBody = document.getElementById('modalBody');
-        if (previewModal) previewModal.style.display = 'none';
-        if (previewBody) previewBody.innerHTML = '';
-        return;
-      }
-      modal.style.display = 'none';
-      modalBody.innerHTML = '';
-    }
-  };
+  infoModalLabel.textContent = movie.title;
+  infoModalBody.innerHTML = `
+    <div class="text-center mb-3">
+      <img src="${movie.poster}" alt="${movie.title}" class="info-poster mb-3">
+      <h5 class="fw-bold" style="font-family:'Montserrat',sans-serif;">${movie.title} (${movie.year})</h5>
+      <span class="badge bg-info text-dark me-1">${movie.genre}</span>
+    </div>
+    <p>${movie.description}</p>
+    <hr>
+    <p class="mb-1"><strong>Director:</strong> ${movie.director}</p>
+    <p class="mb-1"><strong>Writers:</strong> ${movie.writers}</p>
+    <p class="mb-1"><strong>Stars:</strong> ${movie.stars}</p>
+    <div class="text-center mt-3">
+      <a href="${movie.imdbUrl}" target="_blank" class="btn btn-warning fw-bold">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDb" style="height:1.3em;vertical-align:middle;margin-right:0.3em;">
+        View on IMDb
+      </a>
+    </div>
+  `;
+  infoModal.show();
 }
 
-// Modal preview logic for all movies
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('modalPreview');
-  const modalBody = document.getElementById('modalBody');
-  const closeModal = document.getElementById('closeModal');
-  document.querySelectorAll('.trailer-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      const idx = parseInt(btn.getAttribute('data-idx'));
-      const movie = movies[idx];
-      // Always open YouTube trailer in new tab
-      if (idx === 2) {
-        window.open('https://www.youtube.com/watch?v=_Nk8TrBHOrA', '_blank');
-        return;
-      }
-      // For all others, open the embed link as a watch link
-      let ytUrl = movie.trailer;
-      // Convert embed to watch if needed
-      if (ytUrl.includes('/embed/')) {
-        const videoId = ytUrl.split('/embed/')[1];
-        window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-      } else {
-        window.open(ytUrl, '_blank');
-      }
-    });
+// Click on poster image
+document.querySelectorAll('.movie-card .card-img-top').forEach(img => {
+  img.addEventListener('click', () => {
+    showMovieInfo(parseInt(img.getAttribute('data-idx')));
   });
-  closeModal.onclick = function() {
-    modal.style.display = 'none';
-    modalBody.innerHTML = '';
-  };
-  window.onclick = function(event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-      modalBody.innerHTML = '';
-    }
-  };
 });
 
-// Modal preview logic for Tron: Ares
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('modalPreview');
-  const modalBody = document.getElementById('modalBody');
-  const closeModal = document.getElementById('closeModal');
-  // Only Tron: Ares (idx 0) for now
-  document.querySelectorAll('.movie-card img').forEach(img => {
-    img.addEventListener('click', function(e) {
-      const idx = parseInt(img.getAttribute('data-idx'));
-      if (idx === 0) {
-        modalBody.innerHTML = `<h2 style='text-align:center;'>Tron: Ares Preview</h2><div style='text-align:center;'><iframe src='https://www.imdb.com/video/vi2869938201/?playlistId=tt6604188&ref_=tt_ov_pr_ov_vi' width='420' height='236' style='border:none;max-width:100%;' allowfullscreen></iframe></div>`;
-        modal.style.display = 'block';
-      }
-    });
+// Click on title
+document.querySelectorAll('.movie-card .card-title').forEach(title => {
+  title.addEventListener('click', () => {
+    showMovieInfo(parseInt(title.getAttribute('data-idx')));
   });
-  closeModal.onclick = function() {
-    modal.style.display = 'none';
-    modalBody.innerHTML = '';
-  };
-  window.onclick = function(event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-      modalBody.innerHTML = '';
-    }
-  };
 });
-
-// showDetail is no longer used
